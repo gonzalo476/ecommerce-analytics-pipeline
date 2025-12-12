@@ -160,15 +160,6 @@ yarn.lock
 # Exception: Keep example notebooks
 !examples/*.ipynb
 
-# ============================================================================
-# DATA ANALYSIS & VISUALIZATION OUTPUT
-# ============================================================================
-*.png
-*.jpg
-*.jpeg
-*.pdf
-*.html
-
 # Exceptions: Keep documentation images
 !docs/images/*.png
 !docs/diagrams/*.png
