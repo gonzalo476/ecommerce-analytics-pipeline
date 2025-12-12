@@ -1,0 +1,228 @@
+# ============================================================================
+# .gitignore for ecommerce-analytics-pipeline
+# SQL Data Engineering Project
+# ============================================================================
+
+# ============================================================================
+# DATABASE CREDENTIALS & SENSITIVE DATA
+# ============================================================================
+# NEVER commit credentials to Git!
+.env
+.env.local
+.env.production
+config/database.yml
+config/secrets.yml
+credentials.json
+database.ini
+db_config.py
+connection_strings.txt
+
+# MySQL/PostgreSQL connection files
+.my.cnf
+.pgpass
+my.cnf
+
+# ============================================================================
+# DATABASE DUMPS & BACKUPS
+# ============================================================================
+# These files can be huge (GB+) and contain sensitive data
+*.sql.gz
+*.dump
+*.backup
+*.bak
+backups/
+dumps/
+exports/*.csv
+exports/*.json
+data/raw/*
+data/processed/*
+
+# Keep directory structure but ignore contents
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!exports/.gitkeep
+
+# ============================================================================
+# DATABASE BINARY & LOG FILES
+# ============================================================================
+# MySQL files
+*.ibd
+*.frm
+*.myd
+*.myi
+ibdata*
+ib_logfile*
+mysql-bin.*
+*.log
+
+# PostgreSQL files
+*.pid
+postmaster.pid
+pg_log/
+
+# ============================================================================
+# DOCKER & CONTAINERS
+# ============================================================================
+# Docker volumes contain database state
+docker-compose.override.yml
+.docker/
+volumes/
+mysql_data/
+postgres_data/
+
+# Keep docker-compose.yml template
+!docker-compose.yml
+
+# ============================================================================
+# IDE & EDITOR FILES
+# ============================================================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs (DataGrip, PyCharm, etc.)
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+\#*\#
+.\#*
+
+# ============================================================================
+# OPERATING SYSTEM FILES
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================================================
+# PYTHON (if using Python for ETL/scripts)
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+pip-log.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ============================================================================
+# NODE.JS (if using JS for data processing)
+# ============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+package-lock.json
+yarn.lock
+
+# ============================================================================
+# JUPYTER NOTEBOOKS (if doing exploratory analysis)
+# ============================================================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.ipynb
+
+# Exception: Keep example notebooks
+!examples/*.ipynb
+
+# ============================================================================
+# DATA ANALYSIS & VISUALIZATION OUTPUT
+# ============================================================================
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.html
+
+# Exceptions: Keep documentation images
+!docs/images/*.png
+!docs/diagrams/*.png
+!README_assets/*.png
+
+# ============================================================================
+# TEMPORARY & CACHE FILES
+# ============================================================================
+*.tmp
+*.temp
+*.cache
+.cache/
+tmp/
+temp/
+
+# Query results exports
+query_results_*.csv
+export_*.xlsx
+output_*.json
+
+# ============================================================================
+# TESTING & BENCHMARKING
+# ============================================================================
+test_results/
+benchmark_results/
+performance_logs/
+*.test.log
+
+# ============================================================================
+# CI/CD & DEPLOYMENT
+# ============================================================================
+.github/secrets/
+.gitlab-ci-local/
+*.pem
+*.key
+*.crt
+
+# ============================================================================
+# DOCUMENTATION BUILD OUTPUT
+# ============================================================================
+docs/_build/
+docs/.doctrees/
+site/
+
+# ============================================================================
+# CUSTOM PROJECT SPECIFIC
+# ============================================================================
+# Add your custom ignores here
+
+# Large generated datasets (keep samples only)
+generated_data/large_*.sql
+sample_data/million_*.csv
+
+# Personal notes
+NOTES.md
+TODO_personal.md
+scratch/
