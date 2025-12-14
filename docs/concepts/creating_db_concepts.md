@@ -55,3 +55,10 @@ COMMENT 'Base de datos principal'
 LOCATION 's3://my-datalake/MyDatabase';
 ```
 
+### ¿Cuando elegir uno u otro?
+
+| Criterio        | MySQL                                                        | Oracle                                                       | Spark SQL                                                    |
+| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Escenario Ideal | Aplicaciones con necesidades transaccionales (guardar pedidos, inventario, etc.) y un presupuesto limitado, buscando **sencillez**. | Grandes corporaciones bancos o instituciones que requieren la mayor **seguridad y confiabilidad** para sus datos centrales. | Análisis de Big Data, Machine Learning, o si se trabaja con archivos muy grandes de **terabytes u petabytes** de información en la nube. |
+| Caso            | Si se necesita procesar mas de 10TB de datos en una sola consulta. | Si se necesita una Base De Datos simple para un proyecto web. | Si la aplicación necesita transacciones rápidas y constantes (como saber si un asiento de avión estará disponible ahora) |
+| Criterios Clave | Sencillez y Costo.                                           | Seguridad y Robustez.                                        | Escalabilidad y gran Volumen de Datos.                       |
