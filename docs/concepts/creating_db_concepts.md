@@ -36,37 +36,25 @@ CREATE DATABASE MyDatabase
 
 **Oracle**
 
-Oracle no existe como tal `CREATE DATABASE` como en *MySQL*, en su caso se usa `TABLESPACE` para definir un almacenamiento físico donde se guardarán los datos (`mydata.dbf`).
+Oracle no existe como tal `CREATE DATABASE` como en *MySQL*, en su caso se usa `TABLESPACE` para definir un **contenedor de almacenamiento físico** donde se guardarán los datos (`mydata.dbf`). La Base de Datos Lógica (*Schema*) en Oracle es una colección de objetos pertenecientes a un usuario, y estos objetos se almacenan dentro de uno o mas `TABLESPACE`. El `TABLESPACE` es la unidad de asignación y gestión del espacio físico para los objetos de la base de datos.
 
-- Una sola instalación: una sola database (una instancia).
-- Esa *database* contiene todo: datos usuarios, objetos.
-- No creas múltiples databases, creas schemas (*Users*) dentro de la misma database.
+La gestión de **Tablespaces** en Oracle y el concepto de *Database/Schema* en MySQL resuelven problemas relacionados con la organización y la gestión de recursos.
 
 ```sql
-CREATE TABLESPACE MyDatabase_TS
-DATAFILE 'mydata.dbf' SIZE 100M;
-
-CREATE USER MyDatabase IDENTIFIED BY password
-DEFAULT TABLESPACE MyDatabase_TS;
-
-GRANT CONNECT, RESOURCE TO MyDatabase;
-
-ALTER SESSION SET NLS_LANGUAGE='AMERICAN';
-ALTER SESSION SET NLS_TERRITORY='AMERICA';
+CREATE TABLESPACE MyTablespaceName
+DATAFILE '01/oradata/DB_PROD/mydata.dbf'
+SIZE 100M
+AUTOEXTEND ON NEXT 10M
+MAXSIZE 1G;
 ```
 
 **Spark SQL**
 
-*Spark SQL* no soporta `CHARACTER SET` u `COLLATE` directamente, en su lugar se usa `UTF-8` por defecto y la configuración a nivel de sesión.
+*Spark SQL* no soporta `CHARACTER SET` u `COLLATE` directamente, en su lugar usa `UTF-8` por defecto y la configuración a nivel de sesión.
 
 ```sql
 CREATE DATABASE MyDatabase
 COMMENT 'Base de datos principal'
 LOCATION 's3://my-bucket/MyDatabase';
-
-USE MyDatabase;
-
--- Configuración del encoding
-SET spark.sql.sources.default=parquet;
 ```
 
