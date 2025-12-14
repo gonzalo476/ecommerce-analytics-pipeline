@@ -35,9 +35,7 @@ La diferencia critica no radica en la función lógica o la creación del propio
  **MySQL (Universal)**
 
 ```sql
-CREATE DATABASE MyDatabase
-	[[DEFAULT] CHARACTER SET charset_name]
-	[[DEFAULT] COLLATE collation_name];
+CREATE DATABASE MyDatabase;
 ```
 
 **Oracle**
