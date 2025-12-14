@@ -20,11 +20,17 @@ El comando `CREATE` se utiliza para crear los objetos fundamentales de una base 
 
 
 
-## CONFIGURAR LA BASE DE DATOS
+## CREAR UNA BASE DE DATOS
 
-La configuración de la base de datos es un punto crítico al inicio ya que afecta directamente como se almacenan, comparan y ordenan los datos, especialmente texto.
+La sentencia `CREATE DATABASE` o su equivalente `CREATE SCHEMA` es un comando fundamental del lenguaje de definición de datos (**DDL**) en SQL. Su propósito central es crear un ***contenedor lógico*** dentro del sistema de gestión de datos. Este contenedor, a menudo llamado **Base de Datos Lógica** o **Schema**, funciona como un espacio de nombres para organizar y agrupar objetos relacionados como *tablas*, *vistas*, *funciones* y *procedimientos*.
 
-Aun que los parámetros exactos varían según el sistema de gestión de la base de datos (`MySQL`, `Oracle` y `Spark SQL`, etc.), los mas importantes y universales son `CHARACTER SET` y `COLLATE`.
+**Diferencia Principal**
+
+La diferencia critica no radica en la función lógica o la creación del propio contenedor, si no en la naturaleza física y su arquitectura que ese contenedor representa:
+
+- **MySQL:** `CREATE DATABASE` crea una **Base de Datos Lógica** que el sistema asocia fuertemente con una ubicación de almacenamiento. Es un concepto simple de *contenedor de objetos* y *almacenamiento local*.
+- **Oracle:** La Base de Datos Lógica que contiene objetos se llama **Schema** y siempre está vinculada a un **Usuario** (quien es el dueño de los objetos). El comando `CREATE DATABASE` se usa para **crear el servidor completo de Oracle** (la instancia), un proceso de alto nivel que rara vez hace un usuario común.
+- **Spark SQL:** `CREATE DATABASE` crea solo un **registro de metadatos** en el catalogo de datos (Metastore). Esto significa que crea el nombre de la carpeta lógica, pero **no contiene los datos físicamente**; simplemente apunta a una ubicación de archivos Parquet u ORC en un sistema de archivos distribuidos (como S3 o HDFS). Es un concepto de **contenedor de metadatos**.
 
  **MySQL (Universal)**
 
@@ -36,25 +42,18 @@ CREATE DATABASE MyDatabase
 
 **Oracle**
 
-Oracle no existe como tal `CREATE DATABASE` como en *MySQL*, en su caso se usa `TABLESPACE` para definir un **contenedor de almacenamiento físico** donde se guardarán los datos (`mydata.dbf`). La Base de Datos Lógica (*Schema*) en Oracle es una colección de objetos pertenecientes a un usuario, y estos objetos se almacenan dentro de uno o mas `TABLESPACE`. El `TABLESPACE` es la unidad de asignación y gestión del espacio físico para los objetos de la base de datos.
-
-La gestión de **Tablespaces** en Oracle y el concepto de *Database/Schema* en MySQL resuelven problemas relacionados con la organización y la gestión de recursos.
-
 ```sql
-CREATE TABLESPACE MyTablespaceName
-DATAFILE '01/oradata/DB_PROD/mydata.dbf'
-SIZE 100M
-AUTOEXTEND ON NEXT 10M
-MAXSIZE 1G;
+-- 1.- Crea el usuario que será el esquema o contenedor
+CREATE USER DATABASE_DEV IDENTIFIED BY "password123";
+-- 2.- Dar permisos
+GRANT CREATE SESSION, CREATE TABLE TO DATABASE_DEV;
 ```
 
 **Spark SQL**
 
-*Spark SQL* no soporta `CHARACTER SET` u `COLLATE` directamente, en su lugar usa `UTF-8` por defecto y la configuración a nivel de sesión.
-
 ```sql
-CREATE DATABASE MyDatabase
+CREATE DATABASE IF NOT EXISTS MyDatabase
 COMMENT 'Base de datos principal'
-LOCATION 's3://my-bucket/MyDatabase';
+LOCATION 's3://my-datalake/MyDatabase';
 ```
 
