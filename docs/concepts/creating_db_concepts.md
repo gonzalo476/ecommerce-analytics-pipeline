@@ -3,7 +3,7 @@
 El comando `CREATE` es parte del lenguaje de definición de datos (DDL - Data Definition Language) en SQL. Se utiliza para ***construir***, ***definir*** e ***inicializar*** objetos dentro de una base de datos.
 
 ```sql
-CREATE database_name;
+CREATE DATABASE database_name;
 ```
 
 El comando `CREATE` se utiliza para crear los objetos fundamentales de una base de datos. Los usos mas comunes son:
