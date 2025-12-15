@@ -17,3 +17,44 @@ Su rol es definir el **esquema (Schema-on-write)**: usted decide de antemano la 
 3. Las restricciones de los datos (`PRIMARY KEY` para identificar filas únicas, `NOT NULL` para requerir un valor).
 
 El concepto core es la **estructuración de datos**. Es igual que crear una plantilla de una hoja de calculo gigante: el usuario define exactamente cuantas columnas habrán y que tipo de información irá en cada columna.
+
+**MySQL**
+
+```sql
+CREATE TABLE clients (
+    client_id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    registration_date DATE,
+    monthly_volume DECIMAL(10, 2)
+);
+```
+
+**Oracle**
+
+```sql
+-- se necesita especificar el Tablespace para almacenar
+CREATE TABLE USER_DEV.clients (
+    client_id NUMBER PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    registration_date DATE,
+    monthly_volume NUMBER(10, 2)
+)
+TABLESPACE USERS;
+```
+
+**Spark SQL**
+
+```sql
+-- 1.- seleccionar la base de datos
+USE temp_analysis_data;
+
+-- 2.- definir la estructura
+CREATE TABLE clients (
+    client_id INT,
+    name STRING,
+    registration_date DATE,
+    monthly_volume DECIMAL(10, 2)
+)
+USING PARQUET
+PARTITIONED BY (resgistration_date);
+```
