@@ -10,7 +10,7 @@ El **concepto core** es la **optimizacion de la busqueda**. Cuando de hace una c
 
 **Casos de Uso:**
 
-| **Problema **                     | **Caso**                                                     | **Uso**                                                      |
+| **Problema**                      | **Caso**                                                     | **Uso**                                                      |
 | --------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **Aceleración de JOINs**          | Cuando se consolida el *Data Warehouse*, si se unen la tabla de `Ventas` (50 millones de filas) con la tabla `Productos` (10,000 filas) por el `product_id`. | Coloque índices en las **columnas clave de unión** (`JOIN key`) en la tabla más pequeña (la de `Productos`). |
 | **Eficiencia de Carga (UPDATEs)** | En un *pipeline* ETL que necesita actualizar el estado de miles de pedidos en una tabla de `Pedidos` (OLTP). | Cree un índice en la columna de búsqueda (`order_id`) para que el motor encuentre el registro a actualizar al instante, evitando un escaneo completo. |
