@@ -40,7 +40,7 @@ ON web_transactions (client_email)
 TABLESPACE USERS;
 ```
 
-Spark SQL
+**Spark SQL**
 
 ```sql
 -- la búsqueda no se acelera con indices, si no con la organización de los datos.
@@ -56,4 +56,3 @@ PARTITIONED BY (transaction_date)
 -- opcional: ordenar los datos dentro de cada archivo Parquet
 CLUSTERED BY (client_email) INTO 10 BUCKETS;
 ```
-
