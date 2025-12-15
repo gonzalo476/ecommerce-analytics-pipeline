@@ -7,7 +7,7 @@ Una Clave Foránea fuerza una regla estricta: *solo se pueden insertar o modific
 Diferencias Principales entre Sistemas:
 
 - **MySQL / Oracle (RDBMS):** La `FOREIGN KEY` es una restricción activa impuesta por el motor. Cada vez que se inserta o se actualiza una fila, el motor revisa la Tabla Padre en tiempo real. Si la regla se rompe, la transacción falla. Esto garantiza la integridad al 100%.
-- **Spark SQL (Computación Distribuida):** Spark SQL permite la sintaxis `FOREIGN KEY`, pero **NO aplica la restricción**. La `FOREIGN KEY` se guarda únicamente como metadatos en el Catálogo de Datos. Esto es asi para que herramientas de *downstream* como **dbt** y herramientas **BI** sepan que existe una relación, pero **no detiene las inserciones de datos inconsistentes**. La validación debe hacerse explícitamente en el pipeline de datos.
+- **Spark SQL (Computación Distribuida):** Spark SQL permite la sintaxis `FOREIGN KEY`, pero **NO aplica la restricción**. La `FOREIGN KEY` se guarda únicamente como metadatos en el Catálogo de Datos. Esto es así para que herramientas de *downstream* como **dbt** y herramientas **BI** sepan que existe una relación, pero **no detiene las inserciones de datos inconsistentes**. La validación debe hacerse explícitamente en el pipeline de datos.
 
 **MySQL**
 
@@ -37,5 +37,20 @@ CREATE TABLE Order_Detail (
     FOREIGN KEY (order_id)
     REFERENCES Orders (order_id)
 );
+```
+
+**Spark SQL**
+
+```sql
+USE data_lakehouse;
+CREATE TABLE Order_Detail (
+    detail_id INT,
+    order_id INT,
+    quantity INT,
+    
+    -- spark solo guarda la definicion pero no forza la consistencia de datos. 
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES Orders (order_id)
+)
+USING DELTA;
 ```
 
